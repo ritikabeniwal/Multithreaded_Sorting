@@ -73,18 +73,9 @@ public class MergeSort{
             Comparable[] arr = selectionsort(array1);
             System.out.println(Arrays.toString(arr));
             Instant selection_inst2 = Instant.now();
-            System.out.println(
-                    "selection Elapsed Time: " + Duration.between(selection_inst1, selection_inst2).toString());
+            System.out.println( "selection Elapsed Time: " + Duration.between(selection_inst1, selection_inst2).toString());
 
         } else {
-            // Instant selection_inst1 = Instant.now();
-            // System.out.println("\nselection sort called");
-            // selectionSort(array);
-            // Instant selection_inst2 = Instant.now();
-            // System.out.println(
-            // "selection Elapsed Time: " + Duration.between(selection_inst1,
-            // selection_inst2).toString());
-
             ForkJoinPool.commonPool().invoke(new MergeSortThread(array));
             System.out.println(ForkJoinPool.commonPool().getParallelism());
             System.out.println(
@@ -100,15 +91,6 @@ public class MergeSort{
             System.out.printf("Main: getStealCount is %d \n",
                     ForkJoinPool.commonPool().getStealCount());
         }
-        // System.out.printf("Main: parallelism outside is %d \n",
-        // ForkJoinPool.commonPool().getParallelism());
-        // System.out.printf("Main: getActiveThreadCount outside is %d \n",
-        // ForkJoinPool.commonPool().getActiveThreadCount());
-        // System.out.printf("Main: getQueuedTaskCount outside is %d \n",
-        // ForkJoinPool.commonPool().getQueuedTaskCount());
-        // System.out.printf("Main: getStealCount outside is %d \n",
-        // ForkJoinPool.commonPool().getStealCount());
-        // System.out.println("\nSorted array is: ");
         Instant inst2 = Instant.now();
         System.out.println("Elapsed Time: " + Duration.between(inst1,
                 inst2).toString());
@@ -152,10 +134,6 @@ class MergeSortThread extends RecursiveAction {
         leftTask.fork();
         rightTask.compute();
         leftTask.join();
-        // leftTask.fork();
-        // rightTask.fork();
-        // leftTask.join();
-        // rightTask.join();
         mergeSortedSubArr(leftSubArray, rightSubArray, array); // merge all in one
     }
 
